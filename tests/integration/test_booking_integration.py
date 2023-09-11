@@ -6,7 +6,7 @@ from tests.unit.html import html_checks
 
 def test_from_booking_to_welcome(client: FlaskClient) -> None:
     response = client.get(
-        f"/book/going/book",
+        "/book/going/book",
         follow_redirects=True,
     )
 

@@ -1,8 +1,10 @@
+from flask.testing import FlaskClient
+
 import html_checks
 from tests.tests_utils import decode_response
 
 
-def test_display_welcome_html(client):
+def test_display_welcome_html(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )
@@ -14,7 +16,7 @@ def test_display_welcome_html(client):
     assert html_checks.are_competition_details_displayed_in_welcome_html(decoded_response)
 
 
-def test_urls_welcome_html(client):
+def test_urls_welcome_html(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )
@@ -24,7 +26,7 @@ def test_urls_welcome_html(client):
     assert html_checks.is_display_board_link_available_in_welcome_html(decoded_response)
 
 
-def test_booking_option_welcome_html(client):
+def test_booking_option_welcome_html(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )

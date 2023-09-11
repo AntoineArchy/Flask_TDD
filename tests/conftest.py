@@ -5,6 +5,7 @@ import server
 
 
 def set_test_bdd() -> None:
+    """ S'assure que la base de donnée est celles attendues pour les tests """
     server.clubs = server.load_data("tests/clubs.json")["clubs"]
     server.competitions = server.load_data("tests/competitions.json")["competitions"]
 

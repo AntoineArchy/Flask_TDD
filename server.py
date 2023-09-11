@@ -17,6 +17,7 @@ def load_data(file_name: str) -> Dict:
 
 
 def display_html_template(template: str, status: HTTPStatus, **kwargs) -> Tuple[str, HTTPStatus]:
+    """ Helper fonction qui s'occupe de l'affichage de templates """
     return (
         render_template(
             template_name_or_list=f"{template}.html",
@@ -39,11 +40,13 @@ competitions = load_data("competitions.json")["competitions"]
 
 @app.route("/")
 def index() -> Tuple[str, HTTPStatus]:
+    """ Permet à un utilisateur de se connecter au site  """
     return display_html_template("index", HTTPStatus.OK)
 
 
 @app.route("/showSummary", methods=["POST"])
 def show_summary() -> Tuple[str, HTTPStatus]:
+    """ Contrôle le mail transmis par l'utilisateur et le redirige sur la page adequate. """
     email = request.form.get("email", None)
     club = server_utils.find_club_by_email(email, clubs)
 
@@ -61,6 +64,7 @@ def show_summary() -> Tuple[str, HTTPStatus]:
 
 @app.route("/book/<competition>/<club>")
 def book(competition: str, club: str) -> Tuple[str, HTTPStatus] | Response:
+    """ Permet à un utilisateur de reserve des places pour une competition """
     found_club = server_utils.find_club_by_name(club, clubs)
     found_competition = server_utils.find_competition_by_name(competition, competitions)
 
@@ -80,6 +84,7 @@ def book(competition: str, club: str) -> Tuple[str, HTTPStatus] | Response:
 
 @app.route("/purchasePlaces", methods=["POST"])
 def purchase_places() -> Tuple[str, HTTPStatus] | Response:
+    """ Contrôle l'intégrité des informations transmises par l'utilisateur avant réservation ou redirection. """
     club_name, places_required_str, competition_name = server_utils.get_form_data(
         request.form
     )
@@ -116,9 +121,11 @@ def purchase_places() -> Tuple[str, HTTPStatus] | Response:
 
 @app.route("/displayBoard")
 def display_board() -> Tuple[str, HTTPStatus]:
+    """ Permet à l'utilisateur de consulté les points des clubs inscrits sur le site. """
     return display_html_template("display_board", HTTPStatus.OK, clubs=clubs)
 
 
 @app.route("/logout")
 def logout() -> Response:
+    """ Permet à l'utilisateur de retourner sur la page d'identification. """
     return redirect(url_for("index"), HTTPStatus.FOUND)

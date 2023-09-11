@@ -21,6 +21,8 @@ class LocustPerfTest(HttpUser):
             data={"competition": "Spring Festival", "club": "Simply Lift", "places": 1},
             catch_response=True,
         ) as response:
+            # Si l'utilisateur à utiliser la totalité de ses points, un message d'erreur
+            # est le comportement attendu.
             if (
                 response.status_code == 400
                 and "Sorry you dont have anymore points." in response.text

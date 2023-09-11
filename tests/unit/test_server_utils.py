@@ -84,7 +84,7 @@ def test_get_form_data_no_data() -> None:
 
 
 def test_parse_places_required_valid_data() -> None:
-    assert server_utils.parse_places_required("4") is 4
+    assert server_utils.parse_places_required("4") == 4
 
 
 def test_parse_places_required_float() -> None:

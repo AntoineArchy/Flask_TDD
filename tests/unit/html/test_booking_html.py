@@ -1,10 +1,12 @@
+from flask.testing import FlaskClient
+
 import html_checks
 from tests.tests_utils import decode_response
 
 
-def test_displayed_booking_html(client):
+def test_displayed_booking_html(client: FlaskClient) -> None:
     response = client.get(
-        f"/book/going/book",
+        "/book/going/book",
         follow_redirects=True,
     )
 

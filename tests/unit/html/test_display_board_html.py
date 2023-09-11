@@ -1,8 +1,10 @@
+from flask.testing import FlaskClient
+
 import html_checks
 from tests.tests_utils import decode_response
 
 
-def test_display_display_board(client):
+def test_display_display_board(client: FlaskClient) -> None:
     response = client.get("/displayBoard", follow_redirects=True)
     decoded_response = decode_response(response.data)
 

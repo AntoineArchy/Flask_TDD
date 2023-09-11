@@ -40,8 +40,8 @@ def parse_places_required(places_required: str | None) -> int | None:
     return int(places_required)
 
 
+# match / case ne sont pas utilisables ici, car pas d'expressions authorise dans les tokens, à creuser.
 def is_valid_booking(club: Dict, competition: Dict, places_required: int) -> Tuple[bool, str | None]:
-    # match / case ne sont pas utilisables ici, car pas d'expressions authorise dans les tokens, à creuser.
     if int(competition["numberOfPlaces"]) <= 0:
         return False, "Sorry this competition is already full."
     elif places_required > 12:

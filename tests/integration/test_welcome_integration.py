@@ -29,7 +29,7 @@ def test_from_welcome_to_booking(client: FlaskClient) -> None:
     )
 
     booking = client.get(
-        f"/book/going/book",
+        "/book/going/book",
         follow_redirects=True,
     )
     decoded_response = decode_response(booking.data)
