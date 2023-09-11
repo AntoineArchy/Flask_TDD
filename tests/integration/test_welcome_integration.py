@@ -1,10 +1,12 @@
 from http import HTTPStatus
 
+from flask.testing import FlaskClient
+
 from tests.tests_utils import decode_response
 from tests.unit.html import html_checks
 
 
-def test_from_welcome_to_logout(client):
+def test_from_welcome_to_logout(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )
@@ -16,7 +18,7 @@ def test_from_welcome_to_logout(client):
     assert logout.status_code == HTTPStatus.FOUND
 
 
-def test_from_welcome_to_booking(client):
+def test_from_welcome_to_booking(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )
@@ -35,7 +37,7 @@ def test_from_welcome_to_booking(client):
     assert html_checks.is_booking_form_displayed_in_booking_html(decoded_response)
 
 
-def test_from_welcome_to_display_board(client):
+def test_from_welcome_to_display_board(client: FlaskClient) -> None:
     response = client.post(
         "/showSummary", data={"email": "show_summary@test.srv"}, follow_redirects=True
     )

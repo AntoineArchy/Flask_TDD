@@ -3,19 +3,19 @@ from locust import HttpUser, task
 
 class LocustPerfTest(HttpUser):
     @task
-    def index(self):
+    def index(self) -> None:
         self.client.get("")
 
     @task
-    def show_summary(self):
+    def show_summary(self) -> None:
         self.client.post("showSummary", data={"email": "admin@irontemple.com"})
 
     @task
-    def book(self):
+    def book(self) -> None:
         self.client.get("book/Spring Festival/Simply Lift")
 
     @task
-    def purchasePlaces(self):
+    def purchase_places(self) -> None:
         with self.client.post(
             "purchasePlaces",
             data={"competition": "Spring Festival", "club": "Simply Lift", "places": 1},
@@ -28,9 +28,9 @@ class LocustPerfTest(HttpUser):
                 response.success()
 
     @task
-    def displayBoard(self):
+    def display_board(self) -> None:
         self.client.get("displayBoard")
 
     @task
-    def logout(self):
+    def logout(self) -> None:
         self.client.get("logout")

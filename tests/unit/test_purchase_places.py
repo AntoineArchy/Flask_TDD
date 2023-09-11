@@ -1,5 +1,7 @@
 from http import HTTPStatus
 
+from flask.testing import FlaskClient
+
 from tests.tests_utils import decode_response, is_redirection_page
 
 
@@ -143,7 +145,7 @@ def test_not_enough_points_for_purchase(client):
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
 
-def test_points_are_deducted_after_booking(client):
+def test_points_are_deducted_after_booking(client: FlaskClient) -> None:
     response = client.post(
         "/purchasePlaces",
         data={"competition": "empty", "club": "purchase_places", "places": "1"},

@@ -1,8 +1,10 @@
+from flask.testing import FlaskClient
+
 from tests.tests_utils import decode_response
 from tests.unit.html import html_checks
 
 
-def test_from_index_to_welcome(client):
+def test_from_index_to_welcome(client: FlaskClient) -> None:
     response = client.get("/")
     decoded_response = decode_response(response.data)
 

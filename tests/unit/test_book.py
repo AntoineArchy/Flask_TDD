@@ -1,9 +1,11 @@
 from http import HTTPStatus
 
+from flask.testing import FlaskClient
+
 from tests.tests_utils import decode_response, is_redirection_page
 
 
-def test_book_competition_over(client):
+def test_book_competition_over(client: FlaskClient) -> None:
     response = client.get(
         f"/book/over/book",
         follow_redirects=True,
@@ -18,7 +20,7 @@ def test_book_competition_over(client):
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
 
-def test_book_competition_going(client):
+def test_book_competition_going(client: FlaskClient) -> None:
     response = client.get(
         f"/book/going/book",
         follow_redirects=True,
@@ -29,7 +31,7 @@ def test_book_competition_going(client):
     assert response.status_code == HTTPStatus.OK
 
 
-def test_book_non_existing_competition(client):
+def test_book_non_existing_competition(client: FlaskClient) -> None:
     response = client.get(
         f"/book/DoesntExist/book",
         follow_redirects=True,
@@ -40,7 +42,7 @@ def test_book_non_existing_competition(client):
     assert response.status_code == HTTPStatus.BAD_REQUEST
 
 
-def test_book_non_existing_club(client):
+def test_book_non_existing_club(client: FlaskClient) -> None:
     response = client.get(
         f"/book/empty/DoesntExist",
         follow_redirects=True,

@@ -1,16 +1,30 @@
+from __future__ import annotations
+
 import datetime
 import json
 from http import HTTPStatus
+from typing import Dict, Tuple
 
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, Response
 
 import server_utils
 
 
-def load_data(file_name):
+def load_data(file_name: str) -> Dict:
     with open(file_name) as data_file:
         data = json.load(data_file)
         return data
+
+
+def display_html_template(template: str, status: HTTPStatus, **kwargs) -> Tuple[str, HTTPStatus]:
+    return (
+        render_template(
+            template_name_or_list=f"{template}.html",
+            now=datetime.datetime.now(),
+            **kwargs,
+        ),
+        status,
+    )
 
 
 app = Flask(__name__)
@@ -24,12 +38,12 @@ competitions = load_data("competitions.json")["competitions"]
 
 
 @app.route("/")
-def index():
+def index() -> Tuple[str, HTTPStatus]:
     return display_html_template("index", HTTPStatus.OK)
 
 
 @app.route("/showSummary", methods=["POST"])
-def show_summary():
+def show_summary() -> Tuple[str, HTTPStatus]:
     email = request.form.get("email", None)
     club = server_utils.find_club_by_email(email, clubs)
 
@@ -46,7 +60,7 @@ def show_summary():
 
 
 @app.route("/book/<competition>/<club>")
-def book(competition, club):
+def book(competition: str, club: str) -> Tuple[str, HTTPStatus] | Response:
     found_club = server_utils.find_club_by_name(club, clubs)
     found_competition = server_utils.find_competition_by_name(competition, competitions)
 
@@ -65,7 +79,7 @@ def book(competition, club):
 
 
 @app.route("/purchasePlaces", methods=["POST"])
-def purchase_places():
+def purchase_places() -> Tuple[str, HTTPStatus] | Response:
     club_name, places_required_str, competition_name = server_utils.get_form_data(
         request.form
     )
@@ -100,18 +114,11 @@ def purchase_places():
     )
 
 
-def display_html_template(template, status, **kwargs):
-    return (
-        render_template(template_name_or_list=f"{template}.html", now=datetime.datetime.now(), **kwargs),
-        status,
-    )
-
-
 @app.route("/displayBoard")
-def display_board():
+def display_board() -> Tuple[str, HTTPStatus]:
     return display_html_template("display_board", HTTPStatus.OK, clubs=clubs)
 
 
 @app.route("/logout")
-def logout():
+def logout() -> Response:
     return redirect(url_for("index"), HTTPStatus.FOUND)
