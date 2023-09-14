@@ -7,6 +7,8 @@ click==8.1.7
 ConfigArgParse==1.7
 coverage==7.3.0
 exceptiongroup==1.1.3
+flake8==6.1.0
+flake8-html==0.4.3
 Flask==2.3.3
 Flask-BasicAuth==0.2.0
 Flask-Cors==4.0.0
@@ -19,6 +21,7 @@ itsdangerous==2.1.2
 Jinja2==3.1.2
 locust==2.16.1
 MarkupSafe==2.1.3
+mccabe==0.7.0
 msgpack==1.0.5
 mypy-extensions==1.0.0
 packaging==23.1
@@ -26,8 +29,13 @@ pathspec==0.11.2
 platformdirs==3.10.0
 pluggy==1.2.0
 psutil==5.9.5
+pycodestyle==2.11.0
+pyflakes==3.1.0
+Pygments==2.16.1
 pytest==7.4.0
 pytest-cov==4.1.0
+pytest-html==4.0.1
+pytest-metadata==3.0.0
 pyzmq==25.1.1
 requests==2.31.0
 roundrobin==0.0.4

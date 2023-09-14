@@ -6,7 +6,7 @@
 
 ""This is a proof of concept (POC) project to show a light-weight version of our competition booking platform. The aim is the keep things as light as possible, and use feedback from the users to iterate.""
 
-The goal is to pursue the early development and handle any existing or arising issues during the development of the next phase of the project 
+The goal is to pursue the early development and handle any existing or arising issues during the development of the next phase of the project
 
 2. Getting Started
 
@@ -47,6 +47,7 @@ The goal is to pursue the early development and handle any existing or arising i
    
    Testing is done using Pytest. All tests are located in the directory tests/<test_type>. To run the tests :
    - Run the command line : <code>pytest</code>
+   After running pytest, a pytest report and a coverage report will be displayed in the terminal, additionally these reports will be generated in html and can be found in the /reports directory of the projects.
 
 
    [coverage](https://coverage.readthedocs.io/en/coverage-5.1/) is used to check code coverage while running pytest. This is set automatically via setup.cfg.
@@ -55,4 +56,8 @@ The goal is to pursue the early development and handle any existing or arising i
    - Make sure that your Flask server is up and running
    - Make sure that your server adresse is in pair with the host set in locust.conf (default : host = http://127.0.0.1:5000/)
    - Run the command line : <code>locust</code>
+   After running locust, a report will be displayed in the terminal, additionally this report will be generated in html and can be found in the /reports directory of the projects.
+   
+   Right now, locust is set to run primarily in terminal, but the UI is also available if you want to go this way. 
 
+   
